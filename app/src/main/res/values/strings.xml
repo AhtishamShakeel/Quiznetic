@@ -1,3 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Quiznetic</string>
+    <string name="quizzes">Quizzes</string>
+    <string name="error_loading_quizzes">Error loading quizzes</string>
+    <string name="points_value">%d</string>
+    <string name="submit_answer">Submit Answer</string>
+    <string name="select_answer">Please select an answer</string>
+    <string name="timer_format">%d s</string>
+    <string name="quiz_completed">Quiz Completed!</string>
+    <string name="points_earned">You earned %d points!</string>
+    <string name="done">Done</string>
+    <string name="daily_limit_reached">Daily Quiz Limit Reached!</string>
+    <string name="next_quiz_time">Next quizzes available in %1$d hours %2$d minutes</string>
+    <string name="remaining_quizzes">Remaining quizzes today: %d</string>
+    <string name="get_started">Get Started</string>
+    <string name="quiz_rules_description">Test your knowledge and earn stars by answering questions correctly!\n\n
+        Rules:\n
+        • Each quiz has multiple choice questions\n
+        • You have 30 seconds to answer each question\n
+        • Correct answers earn you stars based on difficulty\n
+        • You can attempt up to 5 quizzes per day</string>
+    <string name="ok">OK</string>
 </resources>

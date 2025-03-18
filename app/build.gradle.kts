@@ -36,6 +36,7 @@ android {
     }
     buildFeatures {
         compose = true
+        viewBinding = true
     }
 }
 
@@ -64,5 +65,11 @@ dependencies {
     implementation("androidx.recyclerview:recyclerview:1.3.0")          // RecyclerView
     implementation("com.google.android.material:material:1.9.0")
     implementation("com.airbnb.android:lottie:6.1.0")
+    
+    // Gson for JSON parsing
+    implementation("com.google.code.gson:gson:2.10.1")
+    
+    // OkHttp for network requests
+    implementation("com.squareup.okhttp3:okhttp:4.11.0")
 
 }

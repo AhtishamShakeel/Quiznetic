@@ -1,69 +1,184 @@
 package com.example.quiznetic.quiz
 
+import android.content.Intent
 import android.os.Bundle
-import android.widget.Button
-import android.widget.RadioButton
-import android.widget.RadioGroup
+import android.os.CountDownTimer
+import android.view.LayoutInflater
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.cardview.widget.CardView
+import android.text.Html
+import android.os.Build
+import android.util.Log
 import com.example.quiznetic.R
+import com.example.quiznetic.data.Question
 import com.example.quiznetic.data.Quiz
+import com.example.quiznetic.databinding.ActivityQuizBinding
 
 class QuizActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityQuizBinding
     private val viewModel: QuizViewModel by viewModels()
-
-    private lateinit var questionText: TextView
-    private lateinit var optionsGroup: RadioGroup
-    private lateinit var submitButton: Button
+    private var timer: CountDownTimer? = null
+    private var selectedAnswerIndex: Int = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_quiz)
+        binding = ActivityQuizBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        questionText = findViewById(R.id.questionText)
-        optionsGroup = findViewById(R.id.optionsGroup)
-        submitButton = findViewById(R.id.submitButton)
+        val quiz = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            intent.getParcelableExtra(EXTRA_QUIZ, Quiz::class.java)
+        } else {
+            @Suppress("DEPRECATION")
+            intent.getParcelableExtra(EXTRA_QUIZ)
+        }
 
-        val quiz = intent.getSerializableExtra(EXTRA_QUIZ) as? Quiz
         if (quiz != null) {
+            Log.d("QuizActivity", "Starting quiz with ${quiz.questions.size} questions")
             viewModel.setQuiz(quiz)
         } else {
-            Toast.makeText(this, "Error loading quiz", Toast.LENGTH_SHORT).show()
+            Log.e("QuizActivity", "Quiz data was null")
             finish()
         }
 
+        setupViews()
+        observeViewModel()
+        startTimer()
+    }
+
+    private fun setupViews() {
+        binding.submitButton.setOnClickListener {
+            if (selectedAnswerIndex == -1) {
+                Toast.makeText(this, R.string.select_answer, Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            binding.submitButton.isEnabled = false
+            checkAnswer()
+        }
+    }
+
+    private fun observeViewModel() {
         viewModel.currentQuestion.observe(this) { question ->
             displayQuestion(question)
+            // Restart timer for new question
+            startTimer()
         }
 
         viewModel.isQuizComplete.observe(this) { isComplete ->
             if (isComplete) {
-                Toast.makeText(this, "Quiz Complete! Score: ${viewModel.scoreLiveData.value}", Toast.LENGTH_LONG).show()
-                finish()
+                timer?.cancel() // Stop timer when quiz is complete
+                showQuizCompleteDialog()
             }
         }
 
-        submitButton.setOnClickListener {
-            val selectedOptionIndex = optionsGroup.indexOfChild(findViewById(optionsGroup.checkedRadioButtonId))
-            if (selectedOptionIndex != -1) {
-                viewModel.submitAnswer(selectedOptionIndex)
+        viewModel.totalQuestions.observe(this) { total ->
+            Log.d("QuizActivity", "Total questions: $total")
+        }
+    }
+
+    private fun displayQuestion(question: Question) {
+        binding.apply {
+            val decodedQuestion = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                Html.fromHtml(question.text, Html.FROM_HTML_MODE_LEGACY).toString()
             } else {
-                Toast.makeText(this, "Please select an option", Toast.LENGTH_SHORT).show()
+                @Suppress("DEPRECATION")
+                Html.fromHtml(question.text).toString()
+            }
+            questionText.text = decodedQuestion
+
+            // Clear previous answers
+            optionsContainer.removeAllViews()
+            selectedAnswerIndex = -1  // Reset selection
+
+            // Use options directly as a list instead of splitting
+            question.options.forEachIndexed { index, option ->
+                val optionView = LayoutInflater.from(this@QuizActivity)
+                    .inflate(R.layout.item_option, optionsContainer, false)
+                val textView = optionView.findViewById<TextView>(R.id.optionText)
+                val cardView = optionView.findViewById<CardView>(R.id.optionCard)
+
+                textView.text = option.trim()
+                cardView.setBackgroundResource(R.drawable.default_option_background)
+
+                optionView.setOnClickListener {
+                    resetOptions() // Reset all options before selecting a new one
+                    selectedAnswerIndex = index
+                    cardView.setBackgroundResource(R.drawable.selected_option_background)
+                }
+
+                optionsContainer.addView(optionView)
             }
         }
     }
 
-    private fun displayQuestion(question: com.example.quiznetic.data.Questions) {
-        questionText.text = question.text
-        optionsGroup.removeAllViews()
-
-        question.options.forEachIndexed { index, option ->
-            val radioButton = RadioButton(this)
-            radioButton.text = option.toString()
-            optionsGroup.addView(radioButton)
+    private fun resetOptions() {
+        for (i in 0 until binding.optionsContainer.childCount) {
+            val child = binding.optionsContainer.getChildAt(i)
+            val cardView = child.findViewById<CardView>(R.id.optionCard)
+            cardView.setBackgroundResource(R.drawable.default_option_background)
         }
+    }
+
+    private fun checkAnswer() {
+        // Cancel timer
+        timer?.cancel()
+        
+        val correctIndex = viewModel.currentQuestion.value?.correctAnswer ?: -1
+
+        for (i in 0 until binding.optionsContainer.childCount) {
+            val child = binding.optionsContainer.getChildAt(i)
+            val cardView = child.findViewById<CardView>(R.id.optionCard)
+
+            if (i == correctIndex) {
+                cardView.setBackgroundResource(R.drawable.correct_option_background)
+            } else if (i == selectedAnswerIndex) {
+                cardView.setBackgroundResource(R.drawable.wrong_option_background)
+            }
+        }
+
+        // Enable button after delay and move to next question
+        binding.root.postDelayed({
+            binding.submitButton.isEnabled = true
+            viewModel.submitAnswer(selectedAnswerIndex)
+        }, 1000)
+    }
+
+    private fun startTimer() {
+        // Cancel any existing timer
+        timer?.cancel()
+        
+        // Start a new 10-second timer
+        timer = object : CountDownTimer(10000, 1000) {
+            override fun onTick(millisUntilFinished: Long) {
+                binding.timerText.text = getString(R.string.timer_format, millisUntilFinished / 1000)
+            }
+
+            override fun onFinish() {
+                // Time's up, mark as wrong and move to next question
+                viewModel.submitAnswer(-1)
+                binding.submitButton.isEnabled = true
+            }
+        }.start()
+    }
+
+    private fun showQuizCompleteDialog() {
+        QuizResultsDialog.show(
+            fragmentManager = supportFragmentManager,
+            correctAnswers = viewModel.correctAnswers.value ?: 0,
+            totalQuestions = viewModel.totalQuestions.value ?: 0,
+            onDismiss = {
+                setResult(RESULT_OK)
+                finish()
+            }
+        )
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        timer?.cancel()
     }
 
     companion object {
