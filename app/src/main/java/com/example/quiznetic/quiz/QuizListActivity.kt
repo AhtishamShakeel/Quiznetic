@@ -18,13 +18,18 @@ class QuizListActivity : AppCompatActivity() {
         val recyclerView: RecyclerView = findViewById(R.id.recyclerView)
 
         // Sample categories (replace with real data later)
-        val sampleCategories = listOf(
-            QuizCategory("General Knowledge", R.raw.general_quiz_animation, ""),
-            QuizCategory("Science Quiz", R.raw.science_quiz_animation, ""),
-            QuizCategory("Math Quiz", R.raw.math_quiz_animation, "")
+        private val defaultCategories = listOf(
+            QuizCategory("Animals", R.raw.animal_quiz_animation, ""),
+            QuizCategory("Sports", R.raw.sports_quiz_animation, ""),
+            QuizCategory("Science", R.raw.science_quiz_animation, ""),
+            QuizCategory("Riddles", R.raw.riddles_quiz_animation, ""),
+            QuizCategory("Geography", R.raw.geography_quiz_animation, ""),
+            QuizCategory("Math Fun", R.raw.math_quiz_animation, ""),
+            QuizCategory("Video Games", R.raw.games_quiz_animation, ""),
+            QuizCategory("GK", R.raw.general_quiz_animation, "")
         )
 
-        // Set up RecyclerView
+        // Set up RecyclerView asasasassasa
         recyclerView.layoutManager = LinearLayoutManager(this)
         val adapter = QuizListAdapter(this, sampleCategories) { category ->
             Toast.makeText(this, "Selected: ${category.name}", Toast.LENGTH_SHORT).show()
