@@ -7,6 +7,7 @@ import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import com.example.quiznetic.quiz.QuizListActivity
+import com.example.quiznetic.utils.AdManager
 
 class MainActivity : AppCompatActivity() {
 
@@ -15,6 +16,9 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 
+        // Initialize the Ad Manager
+        AdManager.initialize(this)
+        
         val getStartedButton: Button = findViewById(R.id.getStartedButton)
 
         getStartedButton.setOnClickListener {

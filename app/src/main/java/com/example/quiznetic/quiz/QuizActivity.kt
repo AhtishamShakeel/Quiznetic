@@ -16,6 +16,7 @@ import com.example.quiznetic.R
 import com.example.quiznetic.data.Question
 import com.example.quiznetic.data.Quiz
 import com.example.quiznetic.databinding.ActivityQuizBinding
+import com.example.quiznetic.utils.AdManager
 
 class QuizActivity : AppCompatActivity() {
     private lateinit var binding: ActivityQuizBinding
@@ -27,6 +28,12 @@ class QuizActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityQuizBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        // Preload interstitial ad that will be shown after quiz completion
+        AdManager.preloadInterstitialAd(this)
+        
+        // Load banner ad
+        AdManager.loadBannerAd(this, binding.adContainer)
 
         val quiz = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             intent.getParcelableExtra(EXTRA_QUIZ, Quiz::class.java)
@@ -165,13 +172,24 @@ class QuizActivity : AppCompatActivity() {
     }
 
     private fun showQuizCompleteDialog() {
+        // Show quiz results dialog
         QuizResultsDialog.show(
             fragmentManager = supportFragmentManager,
             correctAnswers = viewModel.correctAnswers.value ?: 0,
             totalQuestions = viewModel.totalQuestions.value ?: 0,
             onDismiss = {
-                setResult(RESULT_OK)
-                finish()
+                // If 10 or more questions were completed, show an interstitial ad
+                if ((viewModel.totalQuestions.value ?: 0) >= 10) {
+                    AdManager.showInterstitialAd(this) {
+                        // This callback runs after the ad is closed
+                        setResult(RESULT_OK)
+                        finish()
+                    }
+                } else {
+                    // Just finish if less than 10 questions
+                    setResult(RESULT_OK)
+                    finish()
+                }
             }
         )
     }

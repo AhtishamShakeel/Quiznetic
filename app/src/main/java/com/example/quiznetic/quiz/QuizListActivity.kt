@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.quiznetic.data.Quiz
 import com.example.quiznetic.data.QuizCategory
 import com.example.quiznetic.databinding.ActivityQuizListBinding
+import com.example.quiznetic.utils.AdManager
 import com.example.quiznetic.utils.SpacingItemDecoration
 
 class QuizListActivity : AppCompatActivity() {
@@ -35,6 +36,9 @@ class QuizListActivity : AppCompatActivity() {
         Log.d("QuizListActivity", "onCreate")
         binding = ActivityQuizListBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        // Load banner ad
+        AdManager.loadBannerAd(this, binding.adContainer)
 
         setupRecyclerView()
         observeViewModel()

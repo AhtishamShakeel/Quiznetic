@@ -72,4 +72,9 @@ dependencies {
     // OkHttp for network requests
     implementation("com.squareup.okhttp3:okhttp:4.11.0")
 
+    // AdMob
+    implementation("com.google.android.gms:play-services-ads:22.6.0")
+    
+    // Unity Ads
+    implementation("com.unity3d.ads:unity-ads:4.9.2")
 }
