@@ -12,6 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="80dp"
         app:cardCornerRadius="12dp"
+        app:cardElevation="4dp"
         android:background="@drawable/dashboard_ui"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"

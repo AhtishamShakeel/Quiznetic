@@ -41,6 +41,7 @@
         android:text="Get Started"
         android:textSize="18sp"
         android:padding="12dp"
+        android:backgroundTint="@color/primary"
         android:background="@drawable/rounded_button"
         android:layout_marginTop="32dp"
         app:layout_constraintTop_toBottomOf="@id/descriptionTextView"

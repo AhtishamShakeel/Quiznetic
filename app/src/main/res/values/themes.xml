@@ -1,8 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
-    <style name="Theme.Quiznetic" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="Theme.Quiznetic" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- Primary brand color -->
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryVariant">@color/primary_dark</item>
+        <item name="colorOnPrimary">@android:color/white</item>
+        
+        <!-- Secondary brand color -->
+        <item name="colorSecondary">@color/primary</item>
+        <item name="colorSecondaryVariant">@color/primary_dark</item>
+        <item name="colorOnSecondary">@android:color/white</item>
+        
+        <!-- Status bar color -->
+        <item name="android:statusBarColor">@color/primary</item>
+        
+        <!-- Force light theme -->
+        <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
+        
+        <!-- Button styling -->
+        <item name="materialButtonStyle">@style/Widget.Quiznetic.Button</item>
     </style>
-
+    
+    <!-- Custom button style -->
+    <style name="Widget.Quiznetic.Button" parent="Widget.MaterialComponents.Button">
+        <item name="backgroundTint">@color/primary</item>
+        <item name="cornerRadius">24dp</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
 
 </resources>
