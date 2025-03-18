@@ -36,7 +36,7 @@ class AdManager {
         private const val UNITY_BANNER_ID = "Banner_Android"
         private const val UNITY_INTERSTITIAL_ID = "Interstitial_Android"
         
-        private const val TEST_MODE = false // Disabled test mode to show real Unity ads
+        private const val TEST_MODE = false
         
         private var admobInterstitialAd: InterstitialAd? = null
         private var isUnityAdsInitialized = false

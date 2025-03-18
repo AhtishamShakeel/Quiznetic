@@ -35,6 +35,12 @@
 
         <activity android:name=".quiz.QuizListActivity" android:exported="true" />
         <activity android:name=".quiz.QuizActivity" android:exported="true" />
+        
+        <!-- Privacy Policy Activity -->
+        <activity 
+            android:name=".PrivacyPolicyActivity" 
+            android:label="Privacy Policy"
+            android:parentActivityName=".MainActivity" />
     </application>
 
 </manifest>
