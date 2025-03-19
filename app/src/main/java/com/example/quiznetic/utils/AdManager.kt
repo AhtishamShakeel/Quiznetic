@@ -5,16 +5,16 @@ import android.content.Context
 import android.util.Log
 import android.view.ViewGroup
 import android.widget.LinearLayout
-import com.google.android.gms.ads.AdError
-import com.google.android.gms.ads.AdListener
-import com.google.android.gms.ads.AdRequest
-import com.google.android.gms.ads.AdSize
-import com.google.android.gms.ads.AdView
-import com.google.android.gms.ads.FullScreenContentCallback
-import com.google.android.gms.ads.LoadAdError
-import com.google.android.gms.ads.MobileAds
-import com.google.android.gms.ads.interstitial.InterstitialAd
-import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
+// import com.google.android.gms.ads.AdError
+// import com.google.android.gms.ads.AdListener
+// import com.google.android.gms.ads.AdRequest
+// import com.google.android.gms.ads.AdSize
+// import com.google.android.gms.ads.AdView
+// import com.google.android.gms.ads.FullScreenContentCallback
+// import com.google.android.gms.ads.LoadAdError
+// import com.google.android.gms.ads.MobileAds
+// import com.google.android.gms.ads.interstitial.InterstitialAd
+// import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import com.unity3d.ads.IUnityAdsInitializationListener
 import com.unity3d.ads.IUnityAdsLoadListener
 import com.unity3d.ads.IUnityAdsShowListener
@@ -27,9 +27,9 @@ class AdManager {
     companion object {
         private const val TAG = "AdManager"
         
-        // AdMob test IDs
-        private const val ADMOB_BANNER_ID = "ca-app-pub-3940256099942544/6300978111"
-        private const val ADMOB_INTERSTITIAL_ID = "ca-app-pub-3940256099942544/1033173712"
+        // AdMob test IDs - Commented out temporarily
+        // private const val ADMOB_BANNER_ID = "ca-app-pub-3940256099942544/6300978111"
+        // private const val ADMOB_INTERSTITIAL_ID = "ca-app-pub-3940256099942544/1033173712"
         
         // Unity Ads test IDs - Using proper Unity test game ID
         private const val UNITY_GAME_ID = "5816684" // Unity test Game ID
@@ -38,7 +38,7 @@ class AdManager {
         
         private const val TEST_MODE = false
         
-        private var admobInterstitialAd: InterstitialAd? = null
+        // private var admobInterstitialAd: InterstitialAd? = null
         private var isUnityAdsInitialized = false
         
         /**
@@ -58,10 +58,10 @@ class AdManager {
                 }
             })
             
-            // Initialize AdMob
-            MobileAds.initialize(context) { initializationStatus ->
-                Log.d(TAG, "AdMob initialization complete: $initializationStatus")
-            }
+            // Initialize AdMob - Commented out temporarily
+            // MobileAds.initialize(context) { initializationStatus ->
+            //     Log.d(TAG, "AdMob initialization complete: $initializationStatus")
+            // }
         }
         
         /**
@@ -75,16 +75,16 @@ class AdManager {
                 adContainer.removeAllViews()
                 adContainer.addView(unityBanner)
                 
-                // Set a
-                // listener to detect failure and load AdMob as fallback
+                // Set a listener to detect failure and load AdMob as fallback
                 unityBanner.setListener(object : BannerView.IListener {
                     override fun onBannerLoaded(bannerAdView: BannerView) {
                         Log.d(TAG, "Unity banner loaded successfully")
                     }
                     
                     override fun onBannerFailedToLoad(bannerAdView: BannerView, errorInfo: BannerErrorInfo) {
-                        Log.d(TAG, "Unity banner failed to load: ${errorInfo.errorMessage}. Trying AdMob...")
-                        loadAdMobBanner(activity, adContainer)
+                        Log.d(TAG, "Unity banner failed to load: ${errorInfo.errorMessage}")
+                        // Commented out AdMob fallback temporarily
+                        // loadAdMobBanner(activity, adContainer)
                     }
                     
                     override fun onBannerClick(bannerAdView: BannerView) {
@@ -102,12 +102,14 @@ class AdManager {
                 
                 unityBanner.load()
             } else {
-                Log.d(TAG, "Unity Ads not initialized, falling back to AdMob")
-                // Fall back to AdMob if Unity isn't initialized
-                loadAdMobBanner(activity, adContainer)
+                Log.d(TAG, "Unity Ads not initialized")
+                // Commented out AdMob fallback temporarily
+                // loadAdMobBanner(activity, adContainer)
             }
         }
         
+        // Commented out AdMob banner loading function temporarily
+        /*
         private fun loadAdMobBanner(activity: Activity, adContainer: ViewGroup) {
             // Load AdMob as fallback
             Log.d(TAG, "Loading AdMob banner ad")
@@ -131,15 +133,17 @@ class AdManager {
             adContainer.addView(adView)
             adView.loadAd(adRequest)
         }
+        */
         
         /**
          * Preload an interstitial ad
          */
         fun preloadInterstitialAd(context: Context) {
             // Unity Ads are loaded on-demand when showing
-            Log.d(TAG, "Preloading AdMob interstitial ad")
+            Log.d(TAG, "Preloading interstitial ad")
             
-            // Also try loading AdMob interstitial as fallback
+            // Commented out AdMob interstitial loading temporarily
+            /*
             InterstitialAd.load(context, ADMOB_INTERSTITIAL_ID, AdRequest.Builder().build(),
                 object : InterstitialAdLoadCallback() {
                     override fun onAdLoaded(interstitialAd: InterstitialAd) {
@@ -152,6 +156,7 @@ class AdManager {
                         admobInterstitialAd = null
                     }
                 })
+            */
         }
         
         /**
@@ -165,15 +170,14 @@ class AdManager {
                     if (success) {
                         onAdClosed()
                     } else {
-                        // Fallback to AdMob if Unity fails
-                        Log.d(TAG, "Unity interstitial failed, falling back to AdMob")
-                        showAdMobInterstitial(activity, onAdClosed)
+                        // Commented out AdMob fallback temporarily
+                        Log.d(TAG, "Unity interstitial failed")
+                        onAdClosed()
                     }
                 }
             } else {
-                Log.d(TAG, "Unity Ads not initialized, falling back to AdMob")
-                // Fallback to AdMob if Unity isn't initialized
-                showAdMobInterstitial(activity, onAdClosed)
+                Log.d(TAG, "Unity Ads not initialized")
+                onAdClosed()
             }
         }
         
@@ -212,6 +216,8 @@ class AdManager {
             UnityAds.load(UNITY_INTERSTITIAL_ID, loadListener)
         }
         
+        // Commented out AdMob interstitial showing function temporarily
+        /*
         private fun showAdMobInterstitial(activity: Activity, onAdClosed: () -> Unit) {
             if (admobInterstitialAd != null) {
                 Log.d(TAG, "Showing AdMob interstitial ad")
@@ -237,5 +243,6 @@ class AdManager {
                 onAdClosed()
             }
         }
+        */
     }
 } 
