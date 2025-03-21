@@ -1,4 +1,4 @@
-package com.example.quiznetic.data
+package com.aunix.quiznetic.data
 
 import java.io.Serializable
 

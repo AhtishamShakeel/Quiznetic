@@ -1,6 +1,5 @@
-package com.example.quiznetic.quiz
+package com.aunix.quiznetic.quiz
 
-import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.view.LayoutInflater
@@ -11,12 +10,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import android.text.Html
 import android.os.Build
-import android.util.Log
 import com.aunix.quiznetic.R
-import com.example.quiznetic.data.Question
-import com.example.quiznetic.data.Quiz
+import com.aunix.quiznetic.data.Question
+import com.aunix.quiznetic.data.Quiz
 import com.aunix.quiznetic.databinding.ActivityQuizBinding
-import com.example.quiznetic.utils.AdManager
+import com.aunix.quiznetic.utils.AdManager
 
 class QuizActivity : AppCompatActivity() {
     private lateinit var binding: ActivityQuizBinding

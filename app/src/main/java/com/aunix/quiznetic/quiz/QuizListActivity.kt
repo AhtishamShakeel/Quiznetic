@@ -1,20 +1,18 @@
-package com.example.quiznetic.quiz
+package com.aunix.quiznetic.quiz
 
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import android.view.View
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import com.example.quiznetic.data.Quiz
-import com.example.quiznetic.data.QuizCategory
+import com.aunix.quiznetic.data.Quiz
+import com.aunix.quiznetic.data.QuizCategory
 import com.aunix.quiznetic.databinding.ActivityQuizListBinding
-import com.example.quiznetic.utils.AdManager
-import com.example.quiznetic.utils.SpacingItemDecoration
+import com.aunix.quiznetic.utils.AdManager
+import com.aunix.quiznetic.utils.SpacingItemDecoration
 
 class QuizListActivity : AppCompatActivity() {
     private lateinit var binding: ActivityQuizListBinding
@@ -48,7 +46,7 @@ class QuizListActivity : AppCompatActivity() {
         binding.tvResetTimer.text = "Select a category below to start a quiz"
         
         // Analyze cache first for debugging
-        com.example.quiznetic.utils.QuizDataManager.analyzeCachedFile(this)
+        com.aunix.quiznetic.utils.QuizDataManager.analyzeCachedFile(this)
         
         // First, try to load cached quizzes
         viewModel.loadCachedQuizzes(this)

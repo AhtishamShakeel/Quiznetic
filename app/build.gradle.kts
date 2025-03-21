@@ -12,8 +12,8 @@ android {
         applicationId = "com.aunix.quiznetic"
         minSdk = 24
         targetSdk = 35
-        versionCode = 1
-        versionName = "1.1"
+        versionCode = 3
+        versionName = "3.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }

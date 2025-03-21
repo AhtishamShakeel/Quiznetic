@@ -1,4 +1,4 @@
-package com.example.quiznetic.ui.theme
+package com.aunix.quiznetic.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

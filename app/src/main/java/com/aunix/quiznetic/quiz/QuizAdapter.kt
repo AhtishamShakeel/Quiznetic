@@ -1,11 +1,11 @@
-package com.example.quiznetic.quiz
+package com.aunix.quiznetic.quiz
 
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.aunix.quiznetic.databinding.ItemQuizBinding
-import com.example.quiznetic.data.QuizCategory
+import com.aunix.quiznetic.data.QuizCategory
 
 class QuizAdapter(
     private val categories: List<QuizCategory>,

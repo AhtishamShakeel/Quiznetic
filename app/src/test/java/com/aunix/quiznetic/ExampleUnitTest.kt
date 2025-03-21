@@ -1,4 +1,4 @@
-package com.example.quiznetic
+package com.aunix.quiznetic
 
 import org.junit.Test
 

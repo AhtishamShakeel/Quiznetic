@@ -1,15 +1,13 @@
-package com.example.quiznetic
+package com.aunix.quiznetic
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
-import com.aunix.quiznetic.R
-import com.example.quiznetic.quiz.QuizListActivity
-import com.example.quiznetic.utils.AdManager
+import com.aunix.quiznetic.quiz.QuizListActivity
+import com.aunix.quiznetic.utils.AdManager
 
 class MainActivity : AppCompatActivity() {
 

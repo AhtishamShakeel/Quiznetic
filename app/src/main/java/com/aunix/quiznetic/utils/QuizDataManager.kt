@@ -1,13 +1,11 @@
-package com.example.quiznetic.utils
+package com.aunix.quiznetic.utils
 
 import android.content.Context
-import android.util.Log
 import com.google.gson.Gson
-import com.example.quiznetic.quiz.QuizData
+import com.aunix.quiznetic.quiz.QuizData
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import java.io.File

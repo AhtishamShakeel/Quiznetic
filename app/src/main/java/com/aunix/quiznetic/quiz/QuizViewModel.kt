@@ -1,10 +1,10 @@
-package com.example.quiznetic.quiz
+package com.aunix.quiznetic.quiz
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.quiznetic.data.Question
-import com.example.quiznetic.data.Quiz
+import com.aunix.quiznetic.data.Question
+import com.aunix.quiznetic.data.Quiz
 
 class QuizViewModel : ViewModel() {
     private lateinit var quiz: Quiz

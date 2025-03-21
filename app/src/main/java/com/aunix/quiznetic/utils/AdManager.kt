@@ -1,10 +1,8 @@
-package com.example.quiznetic.utils
+package com.aunix.quiznetic.utils
 
 import android.app.Activity
 import android.content.Context
-import android.util.Log
 import android.view.ViewGroup
-import android.widget.LinearLayout
 // import com.google.android.gms.ads.AdError
 // import com.google.android.gms.ads.AdListener
 // import com.google.android.gms.ads.AdRequest

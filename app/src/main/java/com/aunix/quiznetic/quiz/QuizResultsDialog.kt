@@ -1,4 +1,4 @@
-package com.example.quiznetic.quiz
+package com.aunix.quiznetic.quiz
 
 import android.app.AlertDialog
 import android.app.Dialog

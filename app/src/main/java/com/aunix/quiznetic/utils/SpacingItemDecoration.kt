@@ -1,4 +1,4 @@
-package com.example.quiznetic.utils
+package com.aunix.quiznetic.utils
 
 import android.graphics.Rect
 import android.view.View

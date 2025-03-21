@@ -1,6 +1,6 @@
-package com.example.quiznetic.quiz
+package com.aunix.quiznetic.quiz
 
-import com.example.quiznetic.data.Quiz
+import com.aunix.quiznetic.data.Quiz
 
 data class QuizData(
     val version: Int,

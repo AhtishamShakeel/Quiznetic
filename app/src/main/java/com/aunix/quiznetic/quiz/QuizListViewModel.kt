@@ -1,21 +1,19 @@
-package com.example.quiznetic.quiz
+package com.aunix.quiznetic.quiz
 
 import android.content.Context
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.aunix.quiznetic.R
-import com.example.quiznetic.data.Quiz
-import com.example.quiznetic.data.QuizCategory
-import com.example.quiznetic.utils.QuizDataManager
+import com.aunix.quiznetic.data.Quiz
+import com.aunix.quiznetic.data.QuizCategory
+import com.aunix.quiznetic.utils.QuizDataManager
 import com.google.gson.Gson
 import com.google.gson.JsonSyntaxException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.util.*
 
 class QuizListViewModel : ViewModel() {
     private val _quizzes = MutableLiveData<List<Quiz>>()

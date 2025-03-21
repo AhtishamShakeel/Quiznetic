@@ -1,4 +1,4 @@
-package com.example.quiznetic.data
+package com.aunix.quiznetic.data
 
 import com.google.gson.TypeAdapter
 import com.google.gson.annotations.JsonAdapter
