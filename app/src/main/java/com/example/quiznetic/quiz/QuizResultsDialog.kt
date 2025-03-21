@@ -5,8 +5,8 @@ import android.app.Dialog
 import android.os.Bundle
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
-import com.example.quiznetic.R
-import com.example.quiznetic.databinding.DialogQuizResultsBinding
+import com.aunix.quiznetic.R
+import com.aunix.quiznetic.databinding.DialogQuizResultsBinding
 
 class QuizResultsDialog : DialogFragment() {
     private var _binding: DialogQuizResultsBinding? = null

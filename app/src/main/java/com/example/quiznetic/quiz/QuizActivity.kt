@@ -12,10 +12,10 @@ import androidx.cardview.widget.CardView
 import android.text.Html
 import android.os.Build
 import android.util.Log
-import com.example.quiznetic.R
+import com.aunix.quiznetic.R
 import com.example.quiznetic.data.Question
 import com.example.quiznetic.data.Quiz
-import com.example.quiznetic.databinding.ActivityQuizBinding
+import com.aunix.quiznetic.databinding.ActivityQuizBinding
 import com.example.quiznetic.utils.AdManager
 
 class QuizActivity : AppCompatActivity() {
@@ -43,10 +43,10 @@ class QuizActivity : AppCompatActivity() {
         }
 
         if (quiz != null) {
-            Log.d("QuizActivity", "Starting quiz with ${quiz.questions.size} questions")
+            
             viewModel.setQuiz(quiz)
         } else {
-            Log.e("QuizActivity", "Quiz data was null")
+            
             finish()
         }
 
@@ -82,7 +82,7 @@ class QuizActivity : AppCompatActivity() {
         }
 
         viewModel.totalQuestions.observe(this) { total ->
-            Log.d("QuizActivity", "Total questions: $total")
+            
         }
     }
 

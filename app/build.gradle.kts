@@ -5,15 +5,15 @@ plugins {
 }
 
 android {
-    namespace = "com.example.quiznetic"
+    namespace = "com.aunix.quiznetic"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.example.quiznetic"
+        applicationId = "com.aunix.quiznetic"
         minSdk = 24
         targetSdk = 35
         versionCode = 1
-        versionName = "1.0"
+        versionName = "1.1"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -73,7 +73,7 @@ dependencies {
     implementation("com.squareup.okhttp3:okhttp:4.11.0")
 
     // AdMob
-    implementation("com.google.android.gms:play-services-ads:22.6.0")
+    //implementation("com.google.android.gms:play-services-ads:22.6.0")
     
     // Unity Ads
     implementation("com.unity3d.ads:unity-ads:4.9.2")

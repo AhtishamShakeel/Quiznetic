@@ -12,7 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.quiznetic.data.Quiz
 import com.example.quiznetic.data.QuizCategory
-import com.example.quiznetic.databinding.ActivityQuizListBinding
+import com.aunix.quiznetic.databinding.ActivityQuizListBinding
 import com.example.quiznetic.utils.AdManager
 import com.example.quiznetic.utils.SpacingItemDecoration
 
@@ -25,7 +25,7 @@ class QuizListActivity : AppCompatActivity() {
         ActivityResultContracts.StartActivityForResult()
     ) { result ->
         if (result.resultCode == Activity.RESULT_OK) {
-            Log.d("QuizListActivity", "Quiz completed")
+            
         }
     }
 
@@ -33,7 +33,7 @@ class QuizListActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Log.d("QuizListActivity", "onCreate")
+        
         binding = ActivityQuizListBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -58,7 +58,7 @@ class QuizListActivity : AppCompatActivity() {
     }
 
     private fun setupRecyclerView() {
-        Log.d("QuizListActivity", "Setting up RecyclerView")
+        
         quizAdapter = QuizAdapter(emptyList()) { category ->
             fetchQuizzesForCategory(category)
         }
@@ -71,7 +71,7 @@ class QuizListActivity : AppCompatActivity() {
         
         // Add refresh capability when clicking on header
         binding.cardQuizzesLeft.setOnClickListener {
-            Log.d("QuizListActivity", "Manual refresh triggered")
+            
             binding.tvResetTimer.text = "Refreshing quiz data..."
             viewModel.checkAndUpdateQuizzes(this)
         }
@@ -79,7 +79,7 @@ class QuizListActivity : AppCompatActivity() {
 
     private fun observeViewModel() {
         viewModel.categories.observe(this) { categoryList ->
-            Log.d("QuizListActivity", "Categories updated: ${categoryList.size}")
+            
             quizAdapter = QuizAdapter(categoryList) { category ->
                 fetchQuizzesForCategory(category)
             }
@@ -103,7 +103,7 @@ class QuizListActivity : AppCompatActivity() {
     }
 
     private fun fetchQuizzesForCategory(category: QuizCategory) {
-        Log.d("QuizListActivity", "Fetching quizzes for category: ${category.name}")
+        
         val selectedQuiz = viewModel.getQuizByCategory(category.name)
         if (selectedQuiz != null) {
             if (selectedQuiz.questions.isNotEmpty()) {
@@ -136,7 +136,7 @@ class QuizListActivity : AppCompatActivity() {
             return
         }
 
-        Log.d("QuizListActivity", "Starting quiz with ID: ${quiz.id}")
+        
         val intent = Intent(this, QuizActivity::class.java).apply {
             putExtra(QuizActivity.EXTRA_QUIZ, quiz)
         }

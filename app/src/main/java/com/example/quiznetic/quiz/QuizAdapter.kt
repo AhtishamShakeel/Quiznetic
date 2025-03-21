@@ -4,8 +4,8 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.aunix.quiznetic.databinding.ItemQuizBinding
 import com.example.quiznetic.data.QuizCategory
-import com.example.quiznetic.databinding.ItemQuizBinding
 
 class QuizAdapter(
     private val categories: List<QuizCategory>,
